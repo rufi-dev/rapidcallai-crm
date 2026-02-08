@@ -7,10 +7,14 @@
 .git
 .gitignore
 
-# Node
+# Node (root)
 node_modules
 npm-debug.log
 yarn-error.log
+
+# Client build artifacts (rebuilt in Docker)
+client/node_modules
+client/dist
 
 # IDE
 .vscode

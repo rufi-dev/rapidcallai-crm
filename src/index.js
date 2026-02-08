@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const { createCrmRouter } = require("./routes");
 const { requireAuth } = require("./auth");
 const { getPool } = require("./store");
@@ -53,7 +54,16 @@ app.get("/health", async (_req, res) => {
 // CRM routes
 app.use("/api/crm", requireAuth, createCrmRouter({ USE_DB: true }));
 
+// Serve frontend static files (built by Vite)
+const STATIC_DIR = path.join(__dirname, "..", "public");
+app.use(express.static(STATIC_DIR));
+// SPA fallback: serve index.html for any non-API route
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(STATIC_DIR, "index.html"));
+});
+
 const PORT = process.env.PORT || 8788;
 app.listen(PORT, () => {
   console.log(`[CRM Service] Listening on port ${PORT}`);
+  console.log(`[CRM Service] Serving frontend from ${STATIC_DIR}`);
 });
