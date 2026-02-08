@@ -3,7 +3,7 @@ FROM node:20-alpine AS frontend-build
 WORKDIR /app/client
 
 COPY client/package.json client/package-lock.json* ./
-RUN npm ci
+RUN npm install
 
 COPY client/ .
 RUN npm run build

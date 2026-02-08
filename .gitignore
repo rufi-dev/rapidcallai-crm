@@ -26,4 +26,9 @@ logs
 # Build outputs
 dist
 build
+public
 *.tsbuildinfo
+
+# Client build
+client/node_modules
+client/dist
